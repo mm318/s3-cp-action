@@ -5,7 +5,7 @@ LABEL "com.github.actions.description"="Copy Paste a file to an AWS S3 bucket - 
 LABEL "com.github.actions.icon"="copy"
 LABEL "com.github.actions.color"="green"
 
-LABEL version="0.2.0"
+LABEL version="0.3.0"
 LABEL repository="https://github.com/tpaschalis/s3-cp-action"
 LABEL homepage="https://tpaschalis.github.io"
 LABEL maintainer="Paschalis Tsilias <paschalist0@gmail.com>"

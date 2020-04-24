@@ -1,7 +1,6 @@
-# GitHub Action to `aws s3 cp` a file to an S3 Bucket 🔄 
+# GitHub Action to `aws s3 cp` a file to an S3 Bucket 🔄
 
 This simple action uses the [vanilla AWS CLI](https://docs.aws.amazon.com/cli/index.html) to sync a directory (either from your repository or generated during your workflow) with a remote S3 bucket.
-
 
 
 ## Usage
@@ -17,28 +16,29 @@ on: push
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-   - uses: actions/checkout@master
-   
-   - name: Upload binary to S3 bucket
-   uses: tpaschalis/s3-sync-action@master
-   with:
-     args: --acl public-read
-   env:
-     FILE: ./gh-actions-golang
-     AWS_REGION: 'eu-central-1'
-     AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Upload binary to S3 bucket
+      uses: tpaschalis/s3-sync-action@master
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'eu-central-1'
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        FILES: 'file1.txt file2.txt file3.txt'
+      with:
+        args: --acl public-read
 ```
 
 
-### Required Environment Variables
+### Environment Variables
 
 | Key | Value | Type | Required |
 | ------------- | ------------- | ------------- | ------------- |
-| `FILE` | The local file you wish to upload to S3. For example, `./myfile.txt`. | `env` | **Yes** |
+| `FILES` | The local file(s) you wish to upload to S3. For example, `./myfile.txt`. | `env` | **Yes** |
+| `DEST` | The key name of destination S3 object in the bucket. For example, `dest_folder/` or `dest_file.txt`. | `env` | **No** |
 | `AWS_REGION` | The region where you created your bucket in. For example, `eu-central-1`. [Full list of regions here.](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions) | `env` | **Yes** |
 
 
